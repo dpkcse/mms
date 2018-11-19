@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 //create schema
 const userSchema = new Schema({
     name:{
-        type:string,
+        type:String,
         required:true
     },
     email:{
-        type:string,
+        type:String,
         required:true
     },
     phone:{
-        type:string,
+        type:String,
         required:true
     },
-    avater:{
-        type:string,
+    password:{
+        type:String,
         required:true
     },
     join_date:{
