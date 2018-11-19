@@ -8,11 +8,13 @@ const mongoose = require('mongoose');
 
 //DB config
 const db = require('./config/keys').mongoURI;
+
+
 //MOngo DB connect
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(()=>{console.log("Mongo DB connected")})
-  .catch((err)=>{console.log(err)});
+  .catch((err)=>{console.log("Mongo DB Error",err)});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
