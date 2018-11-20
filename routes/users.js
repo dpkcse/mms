@@ -83,7 +83,7 @@ router.post('/login', (req, res) => {
           errors.password = 'Password incorrect';
           req.session.success = false;
           req.session.error = [{ errors }];
-          res.redirect('/');
+          res.redirect('/login');
         }
       });
     });
