@@ -17,10 +17,10 @@ var sharedsession = require("express-socket.io-session");
 //DB config
 const db = require('./config/keys').mongoURI;
 //Mngo DB connection
-// mongoose
-//   .connect(db, { useNewUrlParser: true })
-//   .then(()=>{console.log("DB connected")})
-//   .catch((err)=>{console.log("DB Error",err)});
+mongoose
+  .connect(db, { useNewUrlParser: true })
+  .then(()=>{console.log("DB connected")})
+  .catch((err)=>{console.log("DB Error",err)});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
