@@ -4,25 +4,42 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
 const mongoose = require('mongoose');
+var expressValidator = require('express-validator');
+var expressSession = require('express-session')({
+  secret: require('./config/keys').secret,
+  resave: true,
+  saveUninitialized: true
+});
+var socketIO = require('socket.io');
+var sharedsession = require("express-socket.io-session");
 
 //DB config
 const db = require('./config/keys').mongoURI;
-
-
-//MOngo DB connect
+//Mngo DB connection
 mongoose
   .connect(db, { useNewUrlParser: true })
-  .then(()=>{console.log("Mongo DB connected")})
-  .catch((err)=>{console.log("Mongo DB Error",err)});
+  .then(()=>{console.log("DB connected")})
+  .catch((err)=>{console.log("DB Error",err)});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
-
-
 var app = express();
+
+app.use(logger('dev'));
+app.use(expressSession);
+app.use(express.static("public"));
+// Socket.io
+
+var io = socketIO();
+app.io = io;
+io.use(sharedsession(expressSession, {
+  autoSave: true
+}));
+io.of('/namespace').use(sharedsession(expressSession, {
+  autoSave: true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,6 +48,7 @@ app.set('view engine', 'ejs');
 // app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
