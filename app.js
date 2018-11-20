@@ -23,6 +23,7 @@ mongoose
   .catch((err)=>{console.log("DB Error",err)});
 
 var indexRouter = require('./routes/index');
+var dashboardRouter = require('./routes/dashboard');
 var usersRouter = require('./routes/users');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
@@ -42,7 +43,7 @@ io.use(sharedsession(expressSession, {
 io.of('/namespace').use(sharedsession(expressSession, {
   autoSave: true
 }));
-
+require('./socket/socket.js')(io);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -58,6 +59,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -3,6 +3,7 @@ var socket = io();
  * When connect event occured
  **/
 socket.on('connect', function(){
+    
   // emait the user as 'login' and send 'user_id' and 'user_fullname' which save into database
   // then update the database table field, that user is loged in by ajax calling.
   // console.log('client-socket 9 ', {from: user_id, text: user_fullname});

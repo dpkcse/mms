@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
+const _ = require('lodash');
 
 // Load Input Validation
 const validateRegisterInput = require('../validation/register');
@@ -47,22 +48,22 @@ router.post('/register', (req,res) =>{
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
+  
   if (req.session.login) {
-    res.redirect('/index');
+    res.redirect('/dashboard');
   } else {
+    
     const { errors, isValid } = validateLoginInput(req.body);
 
     // Check Validation
     if (!isValid) {
       return res.status(400).json(errors);
     }
-
+    
     const email = req.body.email;
     const password = req.body.password;
-
     // Find user by email
     User.findOne({ email }).then(user => {
-      
       // Check for user
       if (!user) {
         errors.email = 'User not found';
@@ -74,11 +75,10 @@ router.post('/login', (req, res) => {
         if (isMatch) {
           req.session.success = true;
           req.session.login = true;
-          req.session.user_id = _.replace(user.id, 'Uuid: ', '');
-          req.session.user_fullname = user.fullname;
+          req.session.user_id =user._id;
+          req.session.user_fullname = user.name;
           req.session.user_email = user.email;
-          req.session.user_img = user.img;
-          res.redirect('/index');
+          res.redirect('/dashboard');
         } else {
           errors.password = 'Password incorrect';
           req.session.success = false;
