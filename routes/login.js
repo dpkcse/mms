@@ -9,7 +9,14 @@ router.get('/', function (req, res, next) {
     if (req.session.login) {
         res.redirect('/dashboard');
     } else {
-        res.render('login', { title: 'Login | NEC', bodyClass: 'centered-form', success: req.session.success, error: req.session.error, has_login: false });
+        var data = { 
+            title: 'Login | Mr. Manager', 
+            success: req.session.success, 
+            error: req.session.error, 
+            has_login: false, 
+            errors: false 
+        }
+        res.render('login', data);
     }
 });
 

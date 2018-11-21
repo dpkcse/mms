@@ -19,6 +19,13 @@ const userSchema = new Schema({
         type:String,
         required:true
     },
+    type:{
+        type:String,
+        required:true
+    },
+    avatar: {
+        type: String
+    },
     join_date:{
         type:Date,
         default:Date.now
