@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
-const _ = require('lodash');
+var moment = require('moment');
+var _ = require('lodash');
 
 // Load Input Validation
 const validateRegisterInput = require('../validation/register');
@@ -139,5 +140,6 @@ router.post('/login', (req, res) => {
     }
   }
 });
+
 
 module.exports = router;
