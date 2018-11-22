@@ -23,49 +23,58 @@ router.post('/register', (req, res) => {
 
   // Check Validation
   if (!isValid) {
-    res.render("register", errors);
+    var data = {
+      title: 'Register | Mr. Manager',
+      data: errors
+    }
+    res.render("register", data);
+  }else{
+    User.findOne({ email: req.body.email }).then(user => {
+      if (user) {
+        errors.email = 'Email already exists';
+        var data = {
+          title: 'Register | Mr. Manager',
+          data: errors
+        }
+        res.render("register", data);
+      } else {
+        const avatar = gravatar.url(req.body.email, {
+          s: '200', // Size
+          r: 'pg', // Rating
+          d: 'mm' // Default
+        });
+
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          phone: req.body.phone,
+          type: req.body.type,
+          avatar: avatar,
+          password: req.body.password
+        });
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => {
+                var data = {
+                  title: 'Register | Mr. Manager',
+                  has_login: false,
+                  data: user
+                }
+                res.render("register", data);
+              })
+              .catch(err => console.log(err));
+          });
+        });
+      }
+    });
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
-    if (user) {
-      errors.email = 'Email already exists';
-      res.render("register", errors);
-    } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: '200', // Size
-        r: 'pg', // Rating
-        d: 'mm' // Default
-      });
-
-      const newUser = new User({
-        name:req.body.name,
-        email:req.body.email,
-        phone:req.body.phone,
-        type:req.body.type,
-        password:req.body.password
-      });
-
-      bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
-          if (err) throw err;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => {
-              var data = { 
-                title: 'Register | Mr. Manager', 
-                success: req.session.success, 
-                error: req.session.error, 
-                has_login: false, 
-                errors: false 
-              }
-              res.render("register", data);
-            })
-            .catch(err => console.log(err));
-        });
-      });
-    }
-  });
+  
 });
 
 
@@ -84,50 +93,51 @@ router.post('/login', (req, res) => {
     if (!isValid) {
       var data = { 
         title: 'Login | Mr. Manager', 
-        success: req.session.success, 
-        error: req.session.error, 
-        has_login: false, 
         errors: errors 
       }
       res.render("login", data);
-    }
-    
-    const email = req.body.email;
-    const password = req.body.password;
-    // Find user by email
-    User.findOne({ email }).then(user => {
-      // Check for user
-      if (!user) {
-        errors.email = 'User not found';
-        var data = { 
-          title: 'Login | Mr. Manager', 
-          success: req.session.success, 
-          error: req.session.error, 
-          has_login: false, 
-          errors: errors 
+    }else{
+      const email = req.body.email;
+      const password = req.body.password;
+      // Find user by email
+      User.findOne({ email }).then(user => {
+        // Check for user
+        if (!user) {
+          errors.email = 'User not found';
+          var data = {
+            title: 'Login | Mr. Manager',
+            errors: errors
+          }
+          res.render("login", data);
         }
-        res.render("login", data);
-      }
 
-      // Check Password
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          req.session.success = true;
-          req.session.login = true;
-          req.session.user_id =user._id;
-          req.session.user_fullname = user.name;
-          req.session.user_email = user.email;
-          res.redirect('/dashboard');
-        } else {
-          errors.password = 'Password incorrect';
-          req.session.success = false;
-          req.session.error = [{ errors }];
-          res.redirect('/login');
-        }
+        // Check Password
+        bcrypt.compare(password, user.password).then(isMatch => {
+          if (isMatch) {
+            console.log(user);
+            req.session.success = true;
+            req.session.login = true;
+            req.session.user_id = user._id;
+            req.session.user_name = user.name;
+            req.session.user_email = user.email;
+            req.session.user_avater = user.avatar;
+            req.session.user_phone = user.phone;
+            req.session.user_type = user.type;
+            res.redirect('/dashboard');
+          } else {
+            errors.password = 'Password incorrect';
+            req.session.success = false;
+            req.session.error = [{ errors }];
+            var data = {
+              title: 'Login | Mr. Manager',
+              errors: errors
+            }
+            res.render("login", data);
+          }
+        });
       });
-    });
+    }
   }
-
 });
 
 module.exports = router;

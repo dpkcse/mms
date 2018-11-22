@@ -1,19 +1,20 @@
 var express = require('express');
+var moment = require('moment');
+var _ = require('lodash');
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   if (req.session.login) {
     var res_data = {
-      url:'hayven',
-      title: "Dashboard",
+      title: "Dashboard | Mr. Manager",
       success: req.session.success,
-      error: req.session.error,
       user_id: req.session.user_id,
-      user_fullname: req.session.user_fullname,
+      user_name: req.session.user_name,
       user_email: req.session.user_email,
-      user_img: req.session.user_img,
-      highlight: highlight,
+      user_avater: req.session.user_avater,
+      user_phone: req.session.user_phone,
+      user_type: req.session.user_type,
       moment: moment,
       _:_,
       has_login: true,

@@ -9,7 +9,7 @@
                 </div>
                 <form class="card" action="/users/login" method="post">
                     <div class="card-body p-6">
-                        <div class="card-title">Login to your account <%= errors.password %></div>
+                        <div class="card-title">Login to your account</div>
                         <% if(errors != false){ %>
                             <% if(errors.email != undefined){ %>
                                 <div class="alert alert-danger">
@@ -18,7 +18,7 @@
                             <% } %>
                             <% if(errors.password != undefined){ %>
                                 <div class="alert alert-danger">
-                                    <%= errors.email %>
+                                    <%= errors.password %>
                                 </div>
                             <% } %>
                         <% } %>

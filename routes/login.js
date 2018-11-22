@@ -11,9 +11,6 @@ router.get('/', function (req, res, next) {
     } else {
         var data = { 
             title: 'Login | Mr. Manager', 
-            success: req.session.success, 
-            error: req.session.error, 
-            has_login: false, 
             errors: false 
         }
         res.render('login', data);

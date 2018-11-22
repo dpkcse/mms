@@ -5,10 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var data = { 
     title: 'Register | Mr. Manager', 
-    success: req.session.success, 
-    error: req.session.error, 
-    has_login: false, 
-    errors: true 
+    data: true 
   }
   res.render("register", data);
 });
