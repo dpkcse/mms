@@ -1,0 +1,101 @@
+<%- include('partials/head')%>
+<div class="page-main">
+    <%- include('partials/nav')%>
+    <div class="my-3 my-md-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form action="https://httpbin.org/post" method="post" class="card" id="fixedcostForm"  name="fixedcostForm">
+                        <div class="card-header">
+                            <h3 class="card-title">Fixed Cost Entry Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Home Rent</label>
+                                        <input type="text" class="form-control" name="home_rent" placeholder="Type your home rent here" value="0"  data-validation="number" data-validation-allowing="float,integer">>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Maid Bill</label>
+                                        <input type="text" class="form-control" name="maid_bill" placeholder="Type your maid bill here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Internet Bill</label>
+                                        <input type="text" class="form-control" name="internet_bill" placeholder="Type your internet bill here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cable Bill</label>
+                                        <input type="text" class="form-control" name="cable_bill" placeholder="Type your cable bill here" value="0">
+                                    </div>
+                                   
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Dust Bill</label>
+                                        <input type="text" class="form-control" name="dust_bill" placeholder="Type your dust bill here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Newspaper Bill</label>
+                                        <input type="text" class="form-control" name="newspaper_bill" placeholder="Type your newspaper bill here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">GAS Bill</label>
+                                        <input type="text" class="form-control" name="gas_bill" placeholder="Type your GAS bill here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Water Bill</label>
+                                        <input type="text" class="form-control" name="water_bill" placeholder="Type your water bill here" value="0">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+
+                                    <div class="form-group">
+                                        <label class="form-label">Service Charge</label>
+                                        <input type="text" class="form-control" name="service_charge" placeholder="Type your service charge here" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Extra</label>
+                                        <input type="text" class="form-control" name="extra" placeholder="Type your extra charge here" value="0">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Note</label>
+                                        <textarea class="form-control" name="note" rows="6" placeholder="Type note for future reference"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-right">
+                            <div class="d-flex">
+                                <a href="javascript:void(0)" class="btn btn-link">Cancel</a>
+                                <button type="submit" class="btn btn-primary ml-auto">Save data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('partials/foot')%>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<script>
+    $("#fixedcostForm").submit(function (event) {
+        event.preventDefault();
+
+    });
+
+    // $("#fixedcostForm").validate({
+    //     submitHandler: function (form) {
+    //         // do other things for a valid form
+    //         form.submit();
+    //     }
+    // });
+</script>
+<script>
+    $.validate({
+        modules: 'date, security'
+    });
+</script>
