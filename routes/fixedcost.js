@@ -38,58 +38,52 @@ router.get('/', function (req, res, next) {
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post('/register', (req, res) => {
+router.post('/entry', (req, res) => {
     const { errors, isValid } = validateFixedCostInput(req.body);
 
     // Check Validation
     if (!isValid) {
         var data = {
-            title: 'Register | Mr. Manager',
+            title: 'Fixed Cost | Mr. Manager',
             data: errors
         }
-        res.render("register", data);
+        res.render("fixedCost", data);
     } else {
-        User.findOne({ email: req.body.email }).then(user => {
+        FixedCost.findOne({ month_year: moment().format('MM_Y') }).then(user => {
             if (user) {
-                errors.email = 'Email already exists';
+                errors.msg = 'This month already added';
                 var data = {
-                    title: 'Register | Mr. Manager',
+                    title: 'Fixed Cost | Mr. Manager',
                     data: errors
                 }
-                res.render("register", data);
+                res.render("fixedCost", data);
             } else {
-                const avatar = gravatar.url(req.body.email, {
-                    s: '200', // Size
-                    r: 'pg', // Rating
-                    d: 'mm' // Default
+                const newFixedCost = new FixedCost({
+                    home_rent: req.body.home_rent,
+                    maid_bill: req.body.maid_bill,
+                    internet_bill: req.body.internet_bill,
+                    cable_bill: req.body.cable_bill,
+                    dust_bill: dust_bill,
+                    newspaper_bill: req.body.newspaper_bill,
+                    gas_bill: req.body.gas_bill,
+                    water_bill: req.body.water_bill,
+                    service_charge: req.body.service_charge,
+                    note: req.body.note,
+                    month_year: req.body.month_year,
+                    entry_by: req.session.user_id
                 });
 
-                const newUser = new User({
-                    name: req.body.name,
-                    email: req.body.email,
-                    phone: req.body.phone,
-                    type: req.body.type,
-                    avatar: avatar,
-                    password: req.body.password
-                });
-
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(newUser.password, salt, (err, hash) => {
-                        if (err) throw err;
-                        newUser.password = hash;
-                        newUser
-                            .save()
-                            .then(user => {
-                                var data = {
-                                    title: 'Register | Mr. Manager',
-                                    has_login: false,
-                                    data: user
-                                }
-                                res.render("register", data);
-                            })
-                            .catch(err => console.log(err));
-                    });
-                });
+                newFixedCost
+                .save()
+                .then(response => {
+                    var data = {
+                        title: 'Fixed Cost | Mr. Manager',
+                        has_login: false,
+                        data: response
+                    }
+                    res.render("fixedCost", data);
+                })
+                .catch(err => console.log(err));
             }
         });
     }
