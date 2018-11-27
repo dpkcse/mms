@@ -8,7 +8,47 @@
                     <form action="/fixedcost/entry" method="post" class="card" id="fixedcostForm"  name="fixedcostForm">
                         <div class="card-header">
                             <h3 class="card-title">Fixed Cost Entry Form</h3>
+                            <% if(errors != false){ %>
+                                <% if(errors._id != undefined){ %>
+                                    <p class="alert-sucess">Successfully inserted</p>
+                                <% } %>
+                            <% }else{ %>
+                                <% if(errors.home_rent != undefined){ %>
+                                    <p class="alert-danger"><%= errors.home_rent %></p>
+                                <% } %>
+                                <% if(errors.maid_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.maid_bill %></p>
+                                <% } %>
+                                <% if(errors.internet_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.internet_bill %></p>
+                                <% } %>
+                                <% if(errors.cable_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.cable_bill %></p>
+                                <% } %>
+                                <% if(errors.dust_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.dust_bill %></p>
+                                <% } %>
+                                <% if(errors.dust_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.dust_bill %></p>
+                                <% } %>
+                                <% if(errors.gas_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.gas_bill %></p>
+                                <% } %>
+                                <% if(errors.water_bill != undefined){ %>
+                                    <p class="alert-danger"><%= errors.water_bill %></p>
+                                <% } %>
+                                <% if(errors.service_charge != undefined){ %>
+                                    <p class="alert-danger"><%= errors.service_charge %></p>
+                                <% } %>
+                                <% if(errors.extra != undefined){ %>
+                                    <p class="alert-danger"><%= errors.extra %></p>
+                                <% } %>
+                                <% if(errors.msg != undefined){ %>
+                                    <p class="alert-danger"><%= errors.msg %></p>
+                                <% } %>
+                            <% } %>
                         </div>
+                        
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-lg-4">
@@ -82,10 +122,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
 <script>
-    $("#fixedcostForm").submit(function (event) {
-        event.preventDefault();
+    // $("#fixedcostForm").submit(function (event) {
+    //     event.preventDefault();
 
-    });
+    // });
 
     // $("#fixedcostForm").validate({
     //     submitHandler: function (form) {
@@ -95,7 +135,7 @@
     // });
 </script>
 <script>
-    $.validate({
-        modules: 'date, security'
-    });
+    // $.validate({
+    //     modules: 'date, security'
+    // });
 </script>

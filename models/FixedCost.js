@@ -51,7 +51,7 @@ const fixedcostSchema = new Schema({
         default: null
     },
     month_year: {
-        type: Number,
+        type: String,
         default: moment().format('MM_Y')
     },
     entry_date: {
@@ -59,7 +59,7 @@ const fixedcostSchema = new Schema({
         default: Date.now
     },
     entry_by: {
-        type: Number,
+        type: String,
         required: true
     }
 

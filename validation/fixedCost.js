@@ -19,43 +19,43 @@ module.exports = function validateFixedCostInput(data) {
         errors.home_rent = 'Home rent field is required';
     }
 
-    if (Validator.isNumeric(data.home_rent)) {
+    if (!Validator.isNumeric(data.home_rent)) {
         errors.home_rent = 'Home rent is interger value';
     }
 
-    if (Validator.isNumeric(data.maid_bill)) {
+    if (!Validator.isNumeric(data.maid_bill)) {
         errors.maid_bill = 'maid bill is interger value';
     }
 
-    if (Validator.isNumeric(data.internet_bill)) {
+    if (!Validator.isNumeric(data.internet_bill)) {
         errors.internet_bill = 'Internet bill is interger value';
     }
 
-    if (Validator.isNumeric(data.cable_bill)) {
+    if (!Validator.isNumeric(data.cable_bill)) {
         errors.cable_bill = 'Cable bill is interger value';
     }
 
-    if (Validator.isNumeric(data.dust_bill)) {
+    if (!Validator.isNumeric(data.dust_bill)) {
         errors.dust_bill = 'Dust bill is interger value';
     }
 
-    if (Validator.isNumeric(data.newspaper_bill)) {
+    if (!Validator.isNumeric(data.newspaper_bill)) {
         errors.newspaper_bill = 'Newspaper bill is interger value';
     }
 
-    if (Validator.isNumeric(data.gas_bill)) {
+    if (!Validator.isNumeric(data.gas_bill)) {
         errors.gas_bill = 'GAS bill is interger value';
     }
 
-    if (Validator.isNumeric(data.water_bill)) {
+    if (!Validator.isNumeric(data.water_bill)) {
         errors.water_bill = 'Water bill is interger value';
     }
 
-    if (Validator.isNumeric(data.service_charge)) {
+    if (!Validator.isNumeric(data.service_charge)) {
         errors.service_charge = 'Service charge is interger value';
     }
 
-    if (Validator.isNumeric(data.extra)) {
+    if (!Validator.isNumeric(data.extra)) {
         errors.extra = 'Extra charge is interger value';
     }
 
